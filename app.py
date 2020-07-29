@@ -15,6 +15,8 @@ db.create_all()
 def list_users():
 
   users = User.query.all()
+  print (f"Users info {users}")
+  print (f"Users info {users[0]}")
 
   return render_template("users.html", users=users)
 
@@ -29,9 +31,15 @@ def create_user():
   last_name = request.form["last-name"]
   image_url = request.form["image-url"]
 
-  new_user = User(first_name, last_name, image_url)
+  new_user = User(first_name=first_name, last_name=last_name, image_url=image_url)
   db.session.add(new_user)
   db.session.commit()
 
   return redirect("/")
+
+@app.route("/user-detail/<username>")
+def show_user_details(username):
+  user_details = User.query.get(username)
+  print (f"this is the user image {user_details.image_url}")
+  return render_template("user-detail.html", user_name=username, image_url = user_details.image_url)
 

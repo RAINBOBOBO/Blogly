@@ -1,4 +1,4 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block title %} Users {% endblock %}
 
@@ -7,7 +7,7 @@
   <ul>
     {% if users %}
         {% for user in users %}
-        <li>{{user.first_name}}</li>
+        <li><a href="/user-detail/{{user.first_name}}">{{user.first_name}}</a></li>
         {% endfor %}
     {% endif %}
   </ul>
