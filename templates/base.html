@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet"
   href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="/static/index.css">
+  <!--<link rel="stylesheet" href="/static/index.css"> -->
   <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
   <div class="container">
-  {% block content %}
-  {% endblock %}
+    {% if get_flashed_messages() %}
+      {% for msg in get_flashed_messages()}
+        <div>{{msg}}</div>
+      {% endfor %}
+    {% endif %}
+    
+    {% block content %}
+    {% endblock %}
 </div>
 </body>
 </html>

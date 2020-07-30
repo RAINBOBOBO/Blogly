@@ -12,7 +12,7 @@ connect_db(app)
 db.create_all()
 
 @app.route("/")
-def redirct_to_users():
+def root():
   return redirect("/users")
 
 @app.route("/users")
@@ -33,49 +33,46 @@ def show_user_form():
 def create_user():
   first_name = request.form["first-name"]
   last_name = request.form["last-name"]
-  if request.form["image-url"]:
-    image_url = request.form["image-url"]
-    new_user = User(first_name=first_name, last_name=last_name, image_url=image_url)
-  else:
-    new_user = User(first_name=first_name, last_name=last_name)
-
+  image_url = request.form["image-url"] or None
+  new_user = User(first_name=first_name, last_name=last_name, image_url=image_url)
   db.session.add(new_user)
   db.session.commit()
+  flash(f"Adding user {first_name}")
+  return redirect("/users")
 
-  return redirect("/")
-
-@app.route("/users/<username>")
-def show_user_details(username):
-  user_details = User.query.get(username)
+@app.route("/users/<id>")
+def show_user_details(id):
+  user_details = User.query.get(id)
   return render_template("user-detail.html", user_details=user_details)
 
-@app.route("/user/<username>/edit")
-def edit_user(username):
-  return render_template("edit-user.html")
+@app.route("/user/<id>/edit")
+def edit_user(id):
+  user_details = User.query.get(id)
+  return render_template("edit-user.html", user_details=user_details)
 
-@app.route("/user/<username>/edit", methods=["POST"])
-def edit_user_form(username):
+@app.route("/user/<id>/edit", methods=["POST"])
+def edit_user_form(id):
   first_name = request.form["first-name"]
   last_name = request.form["last-name"]
-  image_url = request.form["image-url"]
+  image_url = request.form["image-url"] or None
 
-  updated_user = User.query.get(username)
+  updated_user = User.query.get(id)
   print(f"the new user is {updated_user}")
   updated_user.first_name = first_name
   updated_user.last_name = last_name
   updated_user.image_url = image_url
 
   db.session.commit()
+  flash(f"Editing details of {first_name}")
+  return redirect("/users")
 
-  return redirect("/")
-
-@app.route("/user/<username>/delete", methods=["POST"])
-def delete_user(username):
-  
-  delete_user = User.query.get(username)
+@app.route("/user/<int:id>/delete", methods=["POST"])
+def delete_user(id):
+  print (f"inside delete method")
+  delete_user = User.query.get(id)
 
   db.session.delete(delete_user)
 
   db.session.commit()
 
-  return redirect("/")
+  return redirect("/users")

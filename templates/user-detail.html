@@ -15,11 +15,11 @@
           </div>
       <div class="row">
           <div class="col-sm-2">
-              <button class="btn btn-primary"><a href="/user/{{user_details.first_name}}/edit">Edit</a></button>
+              <a href="/user/{{user_details.id}}/edit">Edit</a>
           </div>
           <div class="col-sm-2">
-              <form action="/user/{{user_details.first_name}}/delete" method="POST">
-                  <button class="btn btn-danger">Delete</button>
+              <form action="/user/{{user_details.id}}/delete" method="POST">
+                <button class="btn btn-danger">Delete</button>
               </form>
           </div>
       </div>
