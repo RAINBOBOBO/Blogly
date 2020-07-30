@@ -11,11 +11,11 @@
 <body>
   <div class="container">
     {% if get_flashed_messages() %}
-      {% for msg in get_flashed_messages()}
+      {% for msg in get_flashed_messages() %}
         <div>{{msg}}</div>
       {% endfor %}
     {% endif %}
-    
+
     {% block content %}
     {% endblock %}
 </div>

@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from models import db, connect_db, User
 
 app = Flask(__name__)
