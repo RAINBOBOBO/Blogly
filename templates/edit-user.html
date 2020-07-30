@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit user {% endblock %}
+
+{% block content %}
+  <h1>Edit a user</h1>
+  <form action="" method="POST">
+    <label for="first-name">First Name</label>
+    <input type="text" name="first-name">
+    <br>
+    <label for="last-name">Last Name</label>
+    <input type="text" name="last-name">
+    <br>
+    <label for="image-url">Image Url</label>
+    <input type="text" name="image-url">
+    <br>
+    <button class="btn btn-success">Save</button>
+  </form>
+  <button class="btn">Cancel</button>
+{% endblock %}

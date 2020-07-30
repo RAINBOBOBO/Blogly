@@ -4,8 +4,10 @@
 
 {% block content %}
   <img src={{image_url}} alt="" class="img-thumbnail">
-  <h1>{{username}}</h1>
-  <button class="btn btn-primary">Edit</button>
-  <button class="btn btn-danger">Delete</button>
+  <h1>{{user_name}}</h1>
+  <button class="btn btn-primary"><a href="/user/{{user_name}}/edit">Edit</a></button>
+  <form action="/user/{{user_name}}/delete" method="POST">
+    <button class="btn btn-danger">Delete</button>
+  </form>
   
 {% endblock %}

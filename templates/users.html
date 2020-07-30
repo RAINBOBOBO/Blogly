@@ -7,9 +7,9 @@
   <ul>
     {% if users %}
         {% for user in users %}
-        <li><a href="/user-detail/{{user.first_name}}">{{user.first_name}}</a></li>
+        <li><a href="/users/{{user.first_name}}">{{user.first_name}}</a></li>
         {% endfor %}
     {% endif %}
   </ul>
-  <button><a href="/create-user">Add user</a></button>
+  <button><a href="/users/new">Add user</a></button>
 {% endblock %}
