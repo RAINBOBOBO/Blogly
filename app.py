@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect
 from models import db, connect_db, User
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:qwerty@localhost/blogly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
@@ -47,8 +47,7 @@ def create_user():
 @app.route("/users/<username>")
 def show_user_details(username):
   user_details = User.query.get(username)
-  print (f"this is the user image {user_details.image_url}")
-  return render_template("user-detail.html", user_name=username, image_url = user_details.image_url)
+  return render_template("user-detail.html", user_details=user_details)
 
 @app.route("/user/<username>/edit")
 def edit_user(username):
