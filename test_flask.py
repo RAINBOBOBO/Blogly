@@ -4,6 +4,7 @@ from app import app
 from models import db, User
 
 # Use test database and don't clutter tests with SQL
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:qwerty@localhost/blogly'
 app.config['SQLALCHEMY_ECHO'] = False
 
