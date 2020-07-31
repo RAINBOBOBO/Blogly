@@ -7,10 +7,18 @@
     <h1>{{post_details.title}}</h1>
     <p>{{ post_details.content }}</p>
     <div>By {{post_details.users.first_name}}</div>
-    <a class="btn" href="/users/{{post_details.users.id}}">Cancel</a>
-    <a class="btn btn-primary" href="/posts/{{post_details.id}}/edit">Edit</a>
-    <form action="/posts/{{post_details.users.id}}/delete" method="POST">
-      <button class="btn btn-danger">Delete</button>
-    </form>
+    <div class="row">
+      <div class="col-sm-1">
+        <a class="btn btn-outline-primary" href="/users/{{post_details.users.id}}">Cancel</a>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" href="/posts/{{post_details.id}}/edit">Edit</a>
+      </div>
+      <div class="col-sm-1">
+        <form action="/posts/{{post_details.users.id}}/delete" method="POST">
+          <button class="btn btn-danger">Delete</button>
+        </div>
+        </form>
+    </div>
   </div>
 {% endblock %}

@@ -13,7 +13,7 @@
       <label for="post-content">Content</label>
       <input type="text" name="post-content">
     </div>
-    <button formmethod="GET" formaction="/users/{{user_details.id}}/posts/new">Cancel</button>
-    <button>Add</button>
+    <button class="btn btn-info" formmethod="GET" formaction="/users/{{user_details.id}}/posts/new">Cancel</button>
+    <button class="btn btn-success">Add</button>
   </form>
 {% endblock %}

@@ -15,7 +15,7 @@
           </div>
       <div class="row">
           <div class="col-sm-2">
-              <a href="/user/{{user_details.id}}/edit">Edit</a>
+              <a href="/user/{{user_details.id}}/edit" class="btn btn-outline-primary">Edit</a>
           </div>
           <div class="col-sm-2">
               <form action="/user/{{user_details.id}}/delete" method="POST">
@@ -24,18 +24,28 @@
           </div>
       </div>
       <div class="row">
-        <h2>Posts</h2>
-        <ul>
+          <div class="col-sm-2">
+            <h2>Posts</h2>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <ul>
             {% if user_posts %}
                 {% for post in user_posts %}
                     <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
                 {% endfor %}
             {% endif %}
-        </ul>
+          </ul>
+        </div>
+      </div>
         <!-- <form action="/users/{{user_details.id}}/posts/new" method="POST">
             <button class="btn btn-primary">Add Post</button>
         </form> -->
-        <a class="btn btn-primary" href="/users/{{user_details.id}}/posts/new">Add Post</a>
+        <div class="row">
+          <div class="col-sm-4">
+            <a class="btn btn-primary" href="/users/{{user_details.id}}/posts/new">Add Post</a>
+          </div>
       </div>
     </div>
   
