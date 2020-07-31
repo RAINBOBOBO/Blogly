@@ -4,8 +4,8 @@ from flask import Flask, render_template, request, redirect, flash
 from models import db, connect_db, User, Post
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:qwerty@localhost/blogly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:qwerty@localhost/blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'secretkey'
@@ -132,8 +132,7 @@ def show_edit_post(id):
   '''Gets the user and post details and passes it to edit post page and renders the same'''
 
   post_details = Post.query.get(id)
-  user_details = post_details.user_id
-  return render_template(f"edit-post.html", user_details=user_details, post_details=post_details)
+  return render_template(f"edit-post.html", post_details=post_details)
 
 @app.route("/posts/<int:id>/edit", methods=["POST"])
 def edit_post(id):
