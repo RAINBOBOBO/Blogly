@@ -4,7 +4,7 @@ from app import app
 from models import db, User, Post
 
 # Use test database and don't clutter tests with SQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly-test'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:qwerty@localhost/blogly'
 app.config['SQLALCHEMY_ECHO'] = False
 
@@ -21,8 +21,9 @@ class UserViewsTestCase(TestCase):
 
   def setUp(self):
     """Add sample user."""
-
+    print (f"LOOKING FOR THIS {app.config['SQLALCHEMY_DATABASE_URI']}")
     User.query.delete()
+    db.session.commit()
 
     user = User(first_name='TestUser', last_name='Babauta')
     db.session.add(user)
@@ -58,23 +59,27 @@ class UserViewsTestCase(TestCase):
       html = resp.get_data(as_text=True)
 
       self.assertEqual(resp.status_code, 200)
-      self.assertIn(f'<li><a href="/users/3">TestUser2</a></li>', html)
+      self.assertIn(f'TestUser2', html)
       #How to get updated user id?
   
 class PostViewsTestCase(TestCase):
 
   def setUp(self):
     """Add sample post."""
-
     Post.query.delete()
+    User.query.delete()
+    db.session.commit()
 
-    user = User(first_name='TestUser', last_name='Babauta')
+    user = User(first_name='Shweta', last_name='Hosamani')
+    db.session.add(user)
+    db.session.commit()
+
     post = Post(title='Test title', content='This is complicated', user_id=user.id)
     db.session.add(post)
     db.session.commit()
 
-    self.post_user_id = post.id
-    self.user_user_id = user.id
+    self.post_id = post.id
+    self.user_id = user.id
 
   def tearDown(self):
     """Clean up any fouled transaction."""
@@ -83,17 +88,12 @@ class PostViewsTestCase(TestCase):
 
   def test_create_post(self):
     with app.test_client() as client:
-      Post.query.delete()
-      User.query.delete()
-
-      user = User(first_name='Shweta', last_name='Hosamani')
-      db.session.add(user)
-      db.session.commit()
+      
       
       d = {"post-title": "new title by shweta", "post-content": "new content"}
-      resp = client.post(f"/users/{user.id}/posts/new", data=d, follow_redirects=True)
+      resp = client.post(f"/users/{self.user_id}/posts/new", data=d, follow_redirects=True)
       html = resp.get_data(as_text=True)
       print (f"HTML HERE {html}")
 
       self.assertEqual(resp.status_code, 200)
-      self.assertIn('<a href="/posts/2">new title by shweta</a>', html)
+      self.assertIn('new title by shweta', html)
